@@ -1,0 +1,82 @@
+import random
+
+def play_rps():
+    print("\nRock, Paper, Scissors")
+    print("Type rock, paper, or scissors.\n")
+
+    player_score = 0
+    computer_score = 0
+
+    while True:
+        choice = input("Your choice: ").lower()
+
+        if choice not in ["rock", "paper", "scissors"]:
+            print("Invalid input.")
+            continue
+
+        comp = random.choice(["rock", "paper", "scissors"])
+        print("Computer:", comp)
+
+        if choice == comp:
+            print("Tie")
+        elif (choice == "rock" and comp == "scissors") or \
+             (choice == "paper" and comp == "rock") or \
+             (choice == "scissors" and comp == "paper"):
+            print("You win")
+            player_score += 1
+        else:
+            print("Computer wins")
+            computer_score += 1
+
+        print(f"Score: {player_score}-{computer_score}")
+
+        again = input("1=Again, 2=Menu: ")
+        if again != "1":
+            break
+
+    if player_score > computer_score:
+        winner = "Player"
+    elif computer_score > player_score:
+        winner = "Computer"
+    else:
+        winner = "Tie"
+
+    return "RPS", f"{player_score}-{computer_score}", winner
+
+
+history = []
+p_wins = 0
+c_wins = 0
+ties = 0
+
+while True:
+    print("\n1.Play RPS  2.History  3.Exit")
+    print(f"Record -> You:{p_wins} Computer:{c_wins} Ties:{ties}")
+
+    choice = input("Choice: ")
+
+    if choice == "1":
+        game, score, winner = play_rps()
+
+        history.append((game, score, winner))
+
+        if winner == "Player":
+            p_wins += 1
+        elif winner == "Computer":
+            c_wins += 1
+        else:
+            ties += 1
+
+    elif choice == "2":
+        if not history:
+            print("No games yet.")
+        else:
+            for g, s, w in history:
+                print(f"{g} | {s} | {w}")
+
+    elif choice == "3":
+        print("Goodbye!")
+        break
+
+    else:
+        print("Invalid choice")
