@@ -1,1 +1,126 @@
+overall_record = {
+    "user_wins": 0,
+    "computer_wins": 0,
+    "ties": 0
+}
+
+history = []
+
+
+def play_rps():
+    print("\nStarting Rock Paper Scissors Shoot...")
+    return {
+        "game": "Rock Paper Scissors Shoot",
+        "user_score": 1,
+        "computer_score": 0,
+        "winner": "User"
+    }
+
+def play_connect4():
+    print("\nStarting Connect 4...")
+    return {
+        "game": "Connect 4",
+        "user_score": 0,
+        "computer_score": 1,
+        "winner": "Computer"
+    }
+
+def play_word_guesser():
+    print("\nStarting Word Guesser...")
+    return {
+        "game": "Word Guesser",
+        "user_score": 1,
+        "computer_score": 1,
+        "winner": "Tie"
+    }
+
+def update_record(result):
+    if result["winner"] == "User":
+        overall_record["user_wins"] += 1
+    elif result["winner"] == "Computer":
+        overall_record["computer_wins"] += 1
+    else:
+        overall_record["ties"] += 1
+
+def add_history(result):
+    entry = {
+        "game": result["game"],
+        "score": f"User {result['user_score']} - Computer {result['computer_score']}",
+        "winner": result["winner"]
+    }
+    history.append(entry)
+
+def show_record():
+    print("\n===== OVERALL RECORD =====")
+    print("User Wins:", overall_record["user_wins"])
+    print("Computer Wins:", overall_record["computer_wins"])
+    print("Ties:", overall_record["ties"])
+
+def show_history():
+    print("\n1. View ALL history")
+    print("2. View history for ONE game")
+    choice = input("Choose an option: ")
+
+    if choice == "1":
+        print("\n===== COMPLETE HISTORY =====")
+        for entry in history:
+            print(f"{entry['game']} | {entry['score']} | Winner: {entry['winner']}")
+
+ut("Enter the game name: ")
+        print(f"\n===== HISTORY FOR {game_name.upper()} =====")
+        for entry in history:
+            if entry["game"].lower() == game_name.lower():
+                print(f"{entry['score']} | Winner: {entry['winner']}")
+    else:
+        print("Invalid choice.")
+
+def main_menu():
+    while True:
+        print("\n===== MAIN GAME HUB =====")
+        print("1. Play Rock Paper Scissors Shoot")
+        print("2. Play Connect 4")
+        print("3. Play Word Guesser")
+        print("4. Game Descriptions")
+        print("5. View Overall Record")
+        print("6. View Game History")
+        print("7. Exit")
+
+        choice = input("Choose an option: ")
+
+        if choice == "1":
+            result = play_rps()
+            update_record(result)
+            add_history(result)
+
+        elif choice == "2":
+            result = play_connect4()
+            update_record(result)
+            add_history(result)
+
+        elif choice == "3":
+            result = play_word_guesser()
+            update_record(result)
+            add_history(result)
+
+        elif choice == "4":
+            print("\n===== GAME DESCRIPTIONS =====")
+            print("Rock Paper Scissors Shoot: Try to beat the computer with your move.")
+            print("Connect 4: Get four pieces in a row before the computer does.")
+            print("Word Guesser: Try to guess the hidden word.")
+
+        elif choice == "5":
+            show_record()
+
+        elif choice == "6":
+            show_history()
+
+        elif choice == "7":
+            print("Thanks for playing!")
+            break
+
+        else:
+            print("Invalid choice. Try again.")
+
+# Start the program
+main_menu()
 
