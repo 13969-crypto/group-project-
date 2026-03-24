@@ -35,13 +35,3 @@ def play_number_guess():
 
         print("\nGame Over!")
         choice = input("Type 'R' to Restart or 'M' for Main Menu: ").upper().strip()
-
-        if choice == 'M':
-            return {
-                "game": "Number Guess",
-                "score": attempts,
-                "outcome": "Win"
-            }
-if __name__ == "__main__":
-    result = play_number_guess()
-    print("\nData returned to Main Menu:", result)
